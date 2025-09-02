@@ -1,75 +1,136 @@
+# 📝 NLP-to-SQL Converter
 
-# AtliQ Tees: Talk to a Database  
+This project allows users to **ask natural language questions** (e.g., "How many blue T-shirts are in stock?") and get back the corresponding **SQL query** and **results** from a database. Built using **LangChain**, **HuggingFace embeddings**, and a sample SQLite database.
 
-This is an end to end LLM project based on Google Palm and Langchain. We are building a system that can talk to MySQL database. 
-User asks questions in a natural language and the system generates answers by converting those questions to an SQL query and
-then executing that query on MySQL database. 
-AtliQ Tees is a T-shirt store where they maintain their inventory, sales and discounts data in MySQL database. A store manager 
-will may ask questions such as,
-- How many white color Adidas t shirts do we have left in the stock?
-- How much sales our store will generate if we can sell all extra-small size t shirts after applying discounts?
-The system is intelligent enough to generate accurate queries for given question and execute them on MySQL database
+---
 
-![](atliq_tees.png)
+## 🚀 Features
 
-## Project Highlights
+* Convert **plain English** to **SQL queries**.
+* Run queries against a **T-shirts inventory database**.
+* Uses **LangChain + HuggingFace embeddings** for semantic understanding.
+* Easy to extend with new datasets.
 
-- AtliQ Tees is a t shirt store that sells Adidas, Nike, Van Heusen and Levi's t shirts 
-- Their inventory, sales and discounts data is stored in a MySQL database
-- We will build an LLM based question and answer system that will use following,
-  - Google Palm LLM
-  - Hugging face embeddings
-  - Streamlit for UI
-  - Langchain framework
-  - Chromadb as a vector store
-  - Few shot learning
-- In the UI, store manager will ask questions in a natural language and it will produce the answers
+---
 
+## 🛠️ Installation
 
-## Installation
-
-1.Clone this repository to your local machine using:
+1. **Clone this repository**
 
 ```bash
-  git clone https://github.com/codebasics/langchain.git
+git clone https://github.com/your-username/NLPTOSQL.git
+cd NLPTOSQL
 ```
-2.Navigate to the project directory:
+
+2. **Create a virtual environment**
 
 ```bash
-  cd 4_sqldb_tshirts
+python -m venv venv
+source venv/bin/activate   # On Linux/Mac
+venv\Scripts\activate      # On Windows
 ```
-3. Install the required dependencies using pip:
+
+3. **Install dependencies**
 
 ```bash
-  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
-4.Acquire an api key through makersuite.google.com and put it in .env file
+
+⚠️ If you face Keras errors, run:
 
 ```bash
-  GOOGLE_API_KEY="your_api_key_here"
+pip uninstall -y keras keras-nightly keras-PreRelease
+pip install tf-keras
 ```
-5. For database setup, run database/db_creation_atliq_t_shirts.sql in your MySQL workbench
 
-## Usage
+---
 
-1. Run the Streamlit app by executing:
+## 📂 Project Structure
+
+```
+NLPTOSQL/
+│── main.py                 # Entry point
+│── langchain_helper.py      # LangChain logic & embeddings
+│── tshirt.db                # SQLite database (sample data)
+│── requirements.txt         # Dependencies
+│── README.md                # Project documentation
+```
+
+---
+
+## ▶️ Usage
+
+Run the main file:
+
 ```bash
-streamlit run main.py
-
+python main.py
 ```
 
-2.The web app will open in your browser where you can ask questions
+Example interaction:
 
-## Sample Questions
-  - How many total t shirts are left in total in stock?
-  - How many t-shirts do we have left for Nike in XS size and white color?
-  - How much is the total price of the inventory for all S-size t-shirts?
-  - How much sales amount will be generated if we sell all small size adidas shirts today after discounts?
-  
-## Project Structure
+```
+User: Show me all blue cotton T-shirts in XL size
+SQL: SELECT * FROM tshirts WHERE color='Blue' AND cloth_type='Cotton' AND size='XL';
+Result: [ ("Women T-shirt", "Cotton", "Blue", "XL", 100), ... ]
+```
 
-- main.py: The main Streamlit application script.
-- langchain_helper.py: This has all the langchain code
-- requirements.txt: A list of required Python packages for the project.
-- few_shots.py: Contains few shot prompts
-- .env: Configuration file for storing your Google API key.
+---
+
+## ⚙️ Tech Stack
+
+* **Python 3.10+**
+* **LangChain**
+* **Sentence-Transformers (HuggingFace)**
+* **SQLite3**
+
+---
+
+## 📊 Database Schema
+
+Sample `tshirts` table:
+
+```sql
+CREATE TABLE tshirts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item TEXT,
+    cloth_type TEXT,
+    color TEXT,
+    size TEXT,
+    quantity INTEGER
+);
+```
+
+---
+
+## 🧪 Example Queries
+
+| Natural Language Question            | SQL Query                                                                                |
+| ------------------------------------ | ---------------------------------------------------------------------------------------- |
+| "List all black polyester T-shirts." | `SELECT * FROM tshirts WHERE color='Black' AND cloth_type='Polyester';`                  |
+| "How many blue pants in L size?"     | `SELECT SUM(quantity) FROM tshirts WHERE item='Men Pant' AND color='Blue' AND size='L';` |
+
+---
+
+## 🤝 Contribution
+
+1. Fork the repo
+2. Create a feature branch (`feature-new`)
+3. Commit changes (`git commit -m 'Added new feature'`)
+4. Push branch (`git push origin feature-new`)
+5. Create a Pull Request
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 👤 Author
+
+**Pradeepa S** ✨
+
+---
+
+🔥 Now you can query databases in plain English!
