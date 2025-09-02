@@ -15,8 +15,8 @@ The system is intelligent enough to generate accurate queries for a given questi
 
 * Works with a sample **T-shirt store database** (inventory, sales, and discounts).
 * Built with:
-
-  * HuggingFace embeddings (instead of Google Palm)
+  *Gemini API
+  * HuggingFace embeddings
   * LangChain framework
   * SQLite / MySQL as the backend database
   * Streamlit for UI
